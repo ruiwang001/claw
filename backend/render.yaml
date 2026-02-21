@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: stock-guardian-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: LLM_BASE_URL
+        value: https://api.moonshot.cn/v1
+      - key: LLM_API_KEY
+        sync: false  # 手动设置
+      - key: LLM_MODEL
+        value: moonshot-v1-32k
+      - key: MARKET_DATA_PROVIDER
+        value: mock
+      - key: AGENT_CRON_MINUTES
+        value: 15
